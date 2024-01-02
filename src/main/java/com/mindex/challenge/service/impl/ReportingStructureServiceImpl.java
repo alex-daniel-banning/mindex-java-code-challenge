@@ -32,7 +32,7 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
 
     /* I went with a recursive approach, but would have to consider an iterative approach if the employee hierarchy is
     *  very deep.
-    *  Also, this queries the database for every employee record which is something to consider. */
+    *  Also, this queries the database for every employee record individually which is something to consider. */
     private int calculateDirectReports(Employee employee) {
         if (employee == null || employee.getDirectReports() == null) {
             return 0;
