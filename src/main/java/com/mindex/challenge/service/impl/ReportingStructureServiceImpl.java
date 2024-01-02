@@ -30,12 +30,15 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
         return new ReportingStructure(employeeId, numberOfDirectReports);
     }
 
+    /* I went with a recursive approach, but would have to consider an iterative approach if the employee hierarchy is
+    *  very deep.
+    *  Also, this queries the database for every employee record which is something to consider. */
     private int calculateDirectReports(Employee employee) {
         if (employee == null || employee.getDirectReports() == null) {
             return 0;
         }
-        int directReportCount = employee.getDirectReports().size();
 
+        int directReportCount = employee.getDirectReports().size();
         List<String> directReportIds = employee.getDirectReports()
                 .stream()
                 .map(Employee::getEmployeeId)

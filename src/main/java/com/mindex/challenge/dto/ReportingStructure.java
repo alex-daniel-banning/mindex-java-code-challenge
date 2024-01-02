@@ -1,5 +1,7 @@
 package com.mindex.challenge.dto;
 
+/* I put this in the dto package because it will not be persisted.
+*  I also made it immutable because it logically didn't make sense to ever update it. */
 public class ReportingStructure {
 
     private final String employee;

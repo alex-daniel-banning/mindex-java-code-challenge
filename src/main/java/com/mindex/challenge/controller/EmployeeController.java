@@ -41,7 +41,7 @@ public class EmployeeController {
         return employeeService.update(employee);
     }
 
-    @GetMapping("/employee/{id}/reportingStructure")
+    @GetMapping("/employee/{id}/directReports")
     public ReportingStructure getReportingStructure(@PathVariable String id) {
         LOG.debug("Received reporting structure get request for id [{}]", id);
         return reportingStructureService.computeReportingStructure(id);

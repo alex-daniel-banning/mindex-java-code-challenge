@@ -24,7 +24,7 @@ public class CompensationController {
 
         boolean compensationEmployeeIdsMatch = compensation.getEmployee() == null || compensation.getEmployee().equals(id);
         if (!compensationEmployeeIdsMatch) {
-            throw new IllegalArgumentException("Employee id in path must match employee id in request object");
+            throw new IllegalArgumentException("Employee id in url path must match employee id in request object");
         }
 
         compensation.setEmployee(id);
