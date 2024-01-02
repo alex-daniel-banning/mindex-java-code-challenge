@@ -27,6 +27,8 @@ public class ReportingStructureServiceImplTest {
     @Autowired
     private ReportingStructureService reportingStructureService;
 
+    /* This tests the direct report count for employee with no direct reports, only adjacent direct reports, and both
+       adjacent and nested direct reports. */
     @Test
     public void testComputeReportingStructure() {
         Employee junior = new Employee();

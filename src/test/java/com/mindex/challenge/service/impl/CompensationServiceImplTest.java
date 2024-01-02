@@ -33,6 +33,8 @@ public class CompensationServiceImplTest {
         compensationUrl = "http://localhost:" + port + "/employee/{id}/compensation";
     }
 
+    /* This will create a compensation object using the rest endpoint, end then another with a more recent effective date.
+    *  It then checks if the get request for the employee returns the effective compensation. */
     @Test
     public void testCreateRead() {
         Compensation initialCompensation = new Compensation();
@@ -45,19 +47,15 @@ public class CompensationServiceImplTest {
         newCompensation.setSalary(500);
         newCompensation.setEffectiveDate(localDateFromString("2012-01-01"));
 
-        // Create
         Compensation createdCompensation1 = restTemplate.postForEntity(compensationUrl, initialCompensation, Compensation.class, EMPLOYEE).getBody();
         assertCompensationEquivalence(createdCompensation1, initialCompensation);
 
-        // Read
         Compensation readCompensation1 = restTemplate.getForEntity(compensationUrl, Compensation.class, initialCompensation.getEmployee(), EMPLOYEE).getBody();
         assertCompensationEquivalence(readCompensation1, initialCompensation);
 
-        // Create new
         Compensation createdCompensation2 = restTemplate.postForEntity(compensationUrl, newCompensation, Compensation.class, EMPLOYEE).getBody();
         assertCompensationEquivalence(createdCompensation2, newCompensation);
 
-        // Read new
         Compensation readCompensation2 = restTemplate.getForEntity(compensationUrl, Compensation.class, EMPLOYEE).getBody();
         assertCompensationEquivalence(readCompensation2, newCompensation);
     }
