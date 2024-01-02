@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -21,9 +22,7 @@ public class CompensationServiceImpl implements CompensationService {
 
     @Override
     public Compensation create(Compensation compensation) {
-        if (compensation.getEmployee() == null) {
-            throw new IllegalArgumentException("Compensation must have a valid employeeId, must not be null");
-        }
+         validatePostObject(compensation);
 
         LOG.debug("Creating compensation for employee with id [{}]", compensation.getEmployee());
         compensationRepository.insert(compensation);
@@ -43,5 +42,16 @@ public class CompensationServiceImpl implements CompensationService {
         } else {
             throw new NoSuchElementException("No compensation found for employee with id " + employeeId);
         }
+    }
+
+    private void validatePostObject(Compensation compensation) {
+        try {
+            Objects.requireNonNull(compensation.getEmployee());
+            Objects.requireNonNull(compensation.getSalary());
+            Objects.requireNonNull(compensation.getEffectiveDate());
+        } catch (NullPointerException npe) {
+            throw new IllegalArgumentException("Compensation must have non null value for fields: employee, salary, and effectiveDate");
+        }
+
     }
 }
