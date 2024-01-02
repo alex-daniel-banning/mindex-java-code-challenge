@@ -6,7 +6,6 @@ import com.mindex.challenge.dto.ReportingStructure;
 import com.mindex.challenge.service.ReportingStructureService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

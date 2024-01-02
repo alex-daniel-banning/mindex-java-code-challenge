@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class CompensationServiceImpl implements CompensationService {
@@ -37,10 +37,11 @@ public class CompensationServiceImpl implements CompensationService {
             throw new IllegalArgumentException("Employee id must not be null");
         }
 
-        List<Compensation> compensations = compensationRepository.findByEmployeeOrderByEffectiveDateDesc(employeeId);
-        if (compensations.isEmpty()) {
+        Optional<Compensation> compensation = compensationRepository.findFirstByEmployeeOrderByEffectiveDateDesc(employeeId);
+        if (compensation.isPresent()) {
+            return compensation.get();
+        } else {
             throw new NoSuchElementException("No compensation found for employee with id " + employeeId);
         }
-        return compensations.get(0);
     }
 }
